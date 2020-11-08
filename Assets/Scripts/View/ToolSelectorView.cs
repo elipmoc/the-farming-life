@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
-
+using Assets.Scripts.Model;
 
 namespace Assets.Scripts.View
 {
@@ -10,28 +10,30 @@ namespace Assets.Scripts.View
         [SerializeField]
         ToolView[] tools = null;
 
-        int currentSelectedToolIndex = 0;
+        int selectedToolIndex = 0;
+
+        public ToolKind SelectedToolKind => (ToolKind)selectedToolIndex;
 
         void Start()
         {
-            SetCurrentSelectedTool(0);
+            SetSelectedTool(0);
             this.UpdateAsObservable().Subscribe(_ => UpdateSelectedTool());
         }
 
-        void SetCurrentSelectedTool(int selectedToolIndex)
+        void SetSelectedTool(int newSelectedToolIndex)
         {
-            currentSelectedToolIndex = Mathf.Clamp(selectedToolIndex, 0, tools.Length - 1);
+            selectedToolIndex = Mathf.Clamp(newSelectedToolIndex, 0, tools.Length - 1);
             foreach (var tool in tools)
                 tool.SetIsSelectd(false);
-            tools[currentSelectedToolIndex].SetIsSelectd(true);
+            tools[selectedToolIndex].SetIsSelectd(true);
         }
 
         private void UpdateSelectedTool()
         {
             if (Input.mouseScrollDelta.y > 0)
-                SetCurrentSelectedTool(currentSelectedToolIndex - 1);
+                SetSelectedTool(selectedToolIndex - 1);
             if (Input.mouseScrollDelta.y < 0)
-                SetCurrentSelectedTool(currentSelectedToolIndex + 1);
+                SetSelectedTool(selectedToolIndex + 1);
         }
     }
 }

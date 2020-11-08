@@ -1,17 +1,12 @@
-﻿using Assets.Scripts.Model;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.View
 {
     public class GroundsView : MonoBehaviour
     {
-        [SerializeField]
-        PlowedSoilView plowedSoilPrefab = null;
-
-        public void PutPlowedSoilView(GroundBlock groundBlock)
+        public void PutPlowedSoilView(PlowedSoilView plowedSoilView)
         {
-            var plowedSoilView = Instantiate(plowedSoilPrefab, transform);
-            plowedSoilView.transform.position = groundBlock.Pos;
+            plowedSoilView.transform.parent = transform;
         }
     }
 }

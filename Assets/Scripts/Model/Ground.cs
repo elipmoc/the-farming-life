@@ -29,13 +29,26 @@ namespace Assets.Scripts.Model
             onCreatedGround.OnNext(groundBlock);
         }
 
+        public void OnSeeded(Vector2 pos)
+        {
+            if (GroundGridService.IsOverflowFieldRange(pos) || ContainsGroundBlock(pos) == false)
+                return;
+
+            GetGroundBlock(pos).State.Value = GroundBlockState.Growth1;
+        }
+
         private bool ContainsGroundBlock(Vector2 pos)
+        {
+            return GetGroundBlock(pos) != null;
+        }
+
+        private GroundBlock GetGroundBlock(Vector2 pos)
         {
             return
                 groundBlocks[
                     GroundGridService.ToGroundGridCountWithLeftDownBased(pos.x),
                     GroundGridService.ToGroundGridCountWithLeftDownBased(pos.y)
-                ] != null;
+                ];
         }
 
         private void SetGroundBlock(GroundBlock groundBlock)

@@ -598,6 +598,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce463f627685984e8fbe9589b359886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  growth1: {fileID: 2491640830523472894}
+  growth2: {fileID: 1418328647700286459}
+  growth3: {fileID: 5523255860221008511}
 --- !u!1 &8091329179985334983
 GameObject:
   m_ObjectHideFlags: 0

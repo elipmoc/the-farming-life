@@ -7,7 +7,7 @@ namespace Assets.Scripts.Model
     public class GroundBlock
     {
         public IObservable<Unit> OnDestroyed => onDestroyed;
-        public GroundBlockState State { get; }
+        public ReactiveProperty<GroundBlockState> State { get; } = new ReactiveProperty<GroundBlockState>();
         public Vector2 Pos { get; }
 
         readonly Subject<Unit> onDestroyed = new Subject<Unit>();
@@ -15,6 +15,7 @@ namespace Assets.Scripts.Model
         public GroundBlock(Vector2 pos)
         {
             Pos = pos;
+            State.Value = GroundBlockState.None;
         }
 
         public void Destroy()
