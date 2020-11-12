@@ -10,9 +10,17 @@ namespace Assets.Scripts.View
         [SerializeField]
         AudioClip tagayasu = null;
 
+        [SerializeField]
+        AudioClip tanemaku = null;
+
         public void PlayTagayasu()
         {
             audioSource.PlayOneShot(tagayasu);
+        }
+
+        public void PlayTanemaku()
+        {
+            audioSource.PlayOneShot(tanemaku);
         }
     }
 }

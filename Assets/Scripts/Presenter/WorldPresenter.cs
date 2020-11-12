@@ -33,13 +33,15 @@ namespace Assets.Scripts.Presenter
                 sePlayer.PlayTagayasu();
             });
 
+            ground.OnSeeded.Subscribe(_ => sePlayer.PlayTanemaku());
+
             playerCommandInput.OnLeftClicked
                 .Where(_ => toolSelectorView.SelectedToolKind == ToolKind.Kuwa)
-                .Subscribe(clickInfo => ground.OnPlowed(clickInfo.Pos));
+                .Subscribe(clickInfo => ground.Plow(clickInfo.Pos));
 
             playerCommandInput.OnLeftClicked
             .Where(_ => toolSelectorView.SelectedToolKind == ToolKind.TaneFukuro)
-            .Subscribe(clickInfo => ground.OnSeeded(clickInfo.Pos));
+            .Subscribe(clickInfo => ground.Seed(clickInfo.Pos));
         }
     }
 }

@@ -11,15 +11,17 @@ namespace Assets.Scripts.Model
         readonly GroundBlock[,] groundBlocks;
 
         public IObservable<GroundBlock> OnCreatedGround => onCreatedGround;
+        public IObservable<Unit> OnSeeded => onSeeded;
 
         readonly Subject<GroundBlock> onCreatedGround = new Subject<GroundBlock>();
+        readonly Subject<Unit> onSeeded = new Subject<Unit>();
 
         public Ground()
         {
             groundBlocks = new GroundBlock[GroundConstant.FIELD_LENGTH, GroundConstant.FIELD_LENGTH];
         }
 
-        public void OnPlowed(Vector2 pos)
+        public void Plow(Vector2 pos)
         {
             if (GroundGridService.IsOverflowFieldRange(pos) || ContainsGroundBlock(pos))
                 return;
@@ -29,12 +31,13 @@ namespace Assets.Scripts.Model
             onCreatedGround.OnNext(groundBlock);
         }
 
-        public void OnSeeded(Vector2 pos)
+        public void Seed(Vector2 pos)
         {
             if (GroundGridService.IsOverflowFieldRange(pos) || ContainsGroundBlock(pos) == false)
                 return;
 
             GetGroundBlock(pos).State.Value = GroundBlockState.Growth1;
+            onSeeded.OnNext(default);
         }
 
         private bool ContainsGroundBlock(Vector2 pos)
