@@ -23,7 +23,7 @@ namespace Assets.Scripts.Presenter
         [SerializeField]
         PlowedSoilFactory plowedSoilFactory = null;
 
-        Ground ground = new Ground();
+        readonly Ground ground = new Ground();
 
         void Awake()
         {
